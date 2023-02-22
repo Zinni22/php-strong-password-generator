@@ -1,11 +1,16 @@
 <?php
+// Importazione file function
+include __DIR__ . '/function.php';
+
+
 
 // Creare un tot di caratteri utilizzabili per la scritta password
-$characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%&?';
+// $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%&?';
 
 // Creare una stringa vuota di partenza
-$password = '' ;
+// $password = '' ;
 $error = null;
+$success = false;
 
 // Per quante volte è la lunghezza inserita in input aggiungere un carattere casuale 
 if (
@@ -24,20 +29,14 @@ if (
         $error =  'Valore massimo caratteri: 32';
     }
     else{
-        for($i = 0; $i < $passwordLenght; $i++){
+        $success = true;
 
-        // prendo un numero random tra zero e la lunghezza
-        $randomIndex = rand(0, strlen($characters) -1);
-        // prendo l'iesimo contenuto che sta al posto del numero random
-        $password .= $characters[$randomIndex];
-        }
-
-    var_dump($password);
+        $password = generatePassword($passwordLenght);
     }
        
 }
 else{
-    echo '<h3> Valore inserito non valido </h3>';
+    $wrongValue = 'Valore inserito non valido';
 }
 
 ?>
@@ -102,7 +101,16 @@ else{
 
             <?php
                 }
+                else if($success){
             ?>
+                La tua password è
+                <?php echo $password; ?>
+            <?php
+                } else {
+                    echo $wrongValue;
+                }
+            ?>
+    
         </div>
 
     </main>
